@@ -6,14 +6,25 @@ class App extends React.Component {
     total: 0,
     value: "",
     oldNumber: ""
+
   }
   typeIn(num) {
     if (isNaN(num)) {
-      const _oldNumber = this.state.value;
-      this.setState({ value: num, oldnumber: _oldNumber });
+      if (this.state.oldNumber.length === 0) {
+        const _oldNumber = this.state.value;
+        this.setState({ value: num, oldNumber: _oldNumber });
+
+      } else {
+        const _newEquation = this.state.oldNumber + this.state.value;
+        const _newTotal = eval(_newEquation);
+
+        this.setState({ total: _newTotal, oldNumber: _newTotal.toString(), equation: num })
+      }
+
+
     }
     else {
-      let newValue = this.state.value + num
+      let newValue = this.state.value + num;
       this.setState({ value: newValue })
     }
   }
